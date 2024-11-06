@@ -1,4 +1,4 @@
-timescale 1ns / 1ps
+`timescale 1ns / 1ps
 
 module univ_shift_reg_tb();
 //Signal Declaration
@@ -9,9 +9,9 @@ logic clk, reset;
 logic [1:0] ctrl;
 logic [N-1:0] d;
 logic [N-1:0] q;
-//Unistantiace Design Under Test
+//Instantiate Design Under Test
 
-univ_shift_reg #(.N(N)) dut0(.*);
+ulv_shift_reg #(.N(N)) dut0(.*);
 
 //Generate Test Vectors
 
@@ -52,7 +52,7 @@ begin
 
     wait (d == 10);
 
-    ctrl == 2'b11;
+    ctrl = 2'b11;
 
     @(negedge clk);
     ctrl = 2'b01;
