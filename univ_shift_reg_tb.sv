@@ -32,6 +32,13 @@ begin
     reset = 1'b0;
 end
 
+//increment d every 2 clokc cycles
+always
+begin
+    repeat(2) @(negedge clk); //Waits for every 2 clock cycles. Then at the negative edge of the 2nd Clock cycle the signal d increments by 1
+    d = d + 1;
+end
+
 //Generate Stimuli
 initial
 begin
@@ -40,6 +47,19 @@ begin
     ctrl = 2'b11;
     //wait for 15 nanoseconds
     #15;
+
+    ctrl = 2'b00;
+
+    wait (d == 10);
+
+    ctrl == 2'b11;
+
+    @(negedge clk);
+    ctrl = 2'b01;
+
+    #(5 * T); //Wait for 100 nanoseconds
+    $stop;
+
 end
 
 
