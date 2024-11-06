@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module univ_shift_reg_tb();
+module ulv_shift_reg_tb();
 //Signal Declaration
 localparam N = 8;
 localparam T = 20; //Clock Period
@@ -11,7 +11,13 @@ logic [N-1:0] d;
 logic [N-1:0] q;
 //Instantiate Design Under Test
 
-ulv_shift_reg #(.N(N)) dut0(.*);
+ulv_shift_reg #(.N(N)) dut0 (
+    .clk(clk),
+        .reset(reset),
+        .ctrl(ctrl),
+        .d(d),
+        .q(q)
+);
 
 //Generate Test Vectors
 
@@ -19,9 +25,9 @@ ulv_shift_reg #(.N(N)) dut0(.*);
 always
 begin
     clk = 1'b1;
-    #(T/2);
+    #(T / 2);
     clk = 1'b0;
-    #(T/2);
+    #(T / 2);
 end
 
 //Reset for the first half of the cycle
@@ -57,11 +63,12 @@ begin
     @(negedge clk);
     ctrl = 2'b01;
 
+
     #(5 * T); //Wait for 100 nanoseconds
+    $monitor("Time=%0t, clk=%0b", $time, clk);
     $stop;
 
 end
 
 
-//Monitor Display
 endmodule

@@ -13,13 +13,14 @@ module ulv_shift_reg
     begin
         case(ctrl)
         2'b00: r_next = r_reg;
-        2'b01:  r_next = {r_reg[N-2:0], d[0]};
+        2'b01: r_next = {r_reg[N-2:0], d[0]};
         2'b10: r_next = {d[N-1], r_reg[N-1:1]};
         2'b11: r_next = d;
+        default: r_next = r_reg;
         endcase
     end
 
-    always_ff@(posedge clk)
+    always_ff@(posedge clk, posedge reset)
     begin
         if (reset)
             r_reg <= 0;
