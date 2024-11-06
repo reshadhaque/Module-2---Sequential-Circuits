@@ -14,7 +14,7 @@ module ulv_shift_reg
         case(ctrl)
         2'b00: r_next = r_reg;
         2'b01:  r_next = {r_reg[N-2:0], d[0]};
-        2'b10: r_next = {d[N-1], r_reg[N-1, 1]};
+        2'b10: r_next = {d[N-1], r_reg[N-1:1]};
         2'b11: r_next = d;
         endcase
     end
@@ -26,4 +26,5 @@ module ulv_shift_reg
         else 
             r_reg <= r_next;
     end
+    assign q = r_reg;
 endmodule
